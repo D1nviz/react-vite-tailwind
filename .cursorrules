@@ -1,0 +1,95 @@
+You are an expert in TypeScript, Vite, React, TanStack Query, Shadcn UI, Radix UI and Tailwind.
+
+## Code Style and Structure
+
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported component, subcomponents, helpers, static content, types.
+
+## Naming Conventions
+
+- Use lowercase with dashes for directories (e.g., `components/auth-wizard`).
+- Favor named exports for components.
+
+## TypeScript Usage
+
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use const assertions or maps instead.
+- Use functional components with TypeScript interfaces.
+
+## Syntax and Formatting
+
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
+
+## TanStack Query
+
+- Use TanStack Query for all server state management.
+- Implement proper query keys using arrays: `['posts', postId]`.
+- Use query invalidation for optimistic updates.
+- Leverage `useSuspenseQuery` for components that always need data.
+- Prefer `useInfiniteQuery` for paginated data.
+
+```typescript
+// Query key factory
+const postKeys = {
+  all: ["posts"] as const,
+  lists: () => [...postKeys.all, "list"] as const,
+  list: (filters: string) => [...postKeys.lists(), { filters }] as const,
+  detail: (id: number) => [...postKeys.all, "detail", id] as const,
+};
+```
+
+## React Routing
+
+- Use React Router for navigation.
+- Use route loaders with TanStack Query for data fetching.
+- Implement proper error boundaries.
+
+## UI and Styling
+
+- Use Shadcn UI and Radix for components.
+- Implement responsive design with Tailwind CSS; use mobile-first approach.
+- Use `clsx` for conditional classNames.
+
+## Performance Optimization
+
+- Use React.lazy() and Suspense for code splitting.
+- Minimize useEffect; prefer TanStack Query for data fetching.
+- Use React.memo() for expensive re-renders.
+- Optimize images: use WebP format, implement lazy loading.
+
+## State Management
+
+- Use TanStack Query for server state.
+- Use React hooks (useState, useReducer) for local component state.
+- Use React Context sparingly for theme/auth only.
+
+## Vite Configuration
+
+- Use proper path aliases in `vite.config.ts`.
+- Implement code splitting with dynamic imports.
+- Configure environment variables properly.
+
+```typescript
+// vite.config.ts
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+});
+```
+
+## Key Conventions
+
+- Use TanStack Query for all server state management.
+- Prefer server state over client state when possible.
+- Implement proper loading and error states.
+- Use React Suspense with TanStack Query for better UX.
+- Wrap data-fetching components in Suspense with fallback.
